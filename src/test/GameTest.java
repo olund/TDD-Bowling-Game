@@ -64,5 +64,22 @@ public class GameTest {
         assertEquals(5, result);
     }
 
+    @Test
+    public void isStrike_GivenStrike_ExpectedTrue(){
+        game.insertFrame(new Frame(10, 0));
+        boolean result = game.isStrike();
+        assertTrue(result);
+    }
 
+    @Test
+    public void isStrike_NonStrike_ExpectedFalse(){
+        game.insertFrame(new Frame(5, 5));
+        boolean result = game.isStrike();
+        assertFalse(result);
+    }
+
+    @Test
+    public void isStrike_StrikeAtFirstThrow_ExpectedTrue(){
+
+    }
 }

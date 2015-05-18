@@ -41,7 +41,9 @@ public class Game {
         return sum;
     }
 
-
+    public boolean isStrike(){
+        return frames.get(frames.size()-1).getArr(0) == 10;
+    }
 
 
 }
