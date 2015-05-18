@@ -12,14 +12,14 @@ public class Frame {
     public Frame(int val1, int val2) {
 
 
-        if(val1 < 0 || val2 < 0) {
-            throw new RangeException((short)1,"Invalid range");
+        if (val1 < 0 || val2 < 0) {
+            throw new RangeException((short) 1, "Invalid range");
         }
 
         int sum = val1 + val2;
 
-        if(sum > 10) {
-            throw new RangeException((short)1,"Invalid range");
+        if (sum > 10) {
+            throw new RangeException((short) 1, "Invalid range");
         }
         this.pins = new int[2];
         this.pins[0] = val1;
