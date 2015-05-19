@@ -9,14 +9,6 @@ import java.util.ArrayList;
  */
 public class Game {
 
-    public enum states {
-        STRIKE,
-        STANDARD,
-        SPARE,
-        LAST_SPARE,
-        LAST_STRIKE
-    };
-
     private ArrayList<Frame> frames;
     private final int MAX_FRAMES = 10;
 
@@ -29,7 +21,6 @@ public class Game {
     }
 
     public boolean insertFrame(Frame f) {
-
 
         boolean result = frames.add(f);
 
@@ -109,9 +100,5 @@ public class Game {
             return true;
         }
         return false;
-    }
-
-    private void calculateStrikeSum() {
-
     }
 }
