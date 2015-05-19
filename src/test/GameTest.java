@@ -271,4 +271,34 @@ public class GameTest {
         assertEquals(110, score);
 
     }
+
+    @Test
+    public void getGameScore_PerfectScore_ExpectedASumOf300() {
+
+        for (int i = 0; i < 9; i++) {
+            game.insertFrame(new Frame(10, 0));
+        }
+
+        game.insertFrame(new Frame(10,10,10));
+
+        int score = game.getGameScore();
+        assertEquals(300, score);
+    }
+
+    @Test
+    public void getGameScore_RealGame_Stuff() {
+        game.insertFrame(new Frame(6,3));
+        game.insertFrame(new Frame(7,1));
+        game.insertFrame(new Frame(8,2));
+        game.insertFrame(new Frame(7,2));
+        game.insertFrame(new Frame(10,0));
+        game.insertFrame(new Frame(6,2));
+        game.insertFrame(new Frame(7,3));
+        game.insertFrame(new Frame(10,0));
+        game.insertFrame(new Frame(8,0));
+        game.insertFrame(new Frame(7,3, 10));
+
+        int score = game.getGameScore();
+        assertEquals(135, score);
+    }
 }
