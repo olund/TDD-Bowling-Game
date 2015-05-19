@@ -105,7 +105,7 @@ public class Game {
 
         if(frames.get(pos).getArr(0) == 10){
             return false;
-        } else if(frames.get(pos).getScore(-1) == 10){
+        } else if(frames.get(pos).getScore(1) == 10){
             return true;
         }
         return false;
