@@ -1,5 +1,6 @@
 package test;
 
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import main.Frame;
 import org.junit.Before;
 import org.junit.Test;
@@ -79,7 +80,98 @@ public class GameTest {
     }
 
     @Test
-    public void isStrike_StrikeAtFirstThrow_ExpectedTrue(){
+    public void getGameScore_OneStrike_ShortRun() {
 
+        game.insertFrame(new Frame(10,0));
+        game.insertFrame(new Frame(5,2));
+
+        int score = game.getGameScore();
+        assertEquals(24, score);
+
+    }
+
+    @Test
+    public void getGameScore_OneStrike_LongerRun() {
+
+        game.insertFrame(new Frame(1,6));
+        game.insertFrame(new Frame(5,2));
+        game.insertFrame(new Frame(3,1));
+        game.insertFrame(new Frame(10,0));
+        game.insertFrame(new Frame(2,6));
+        game.insertFrame(new Frame(5,2));
+
+        int score = game.getGameScore();
+        assertEquals(51, score);
+    }
+
+
+    @Test
+    public void getGameScore_MultipleStrikes() {
+
+        game.insertFrame(new Frame(10,0));
+        game.insertFrame(new Frame(10,0));
+        game.insertFrame(new Frame(10,0));
+        game.insertFrame(new Frame(7,2));
+
+        int score = game.getGameScore();
+        assertEquals(83, score);
+    }
+
+    @Test
+    public void getGameScore_OneSpare_ShortRun() {
+
+        game.insertFrame(new Frame(5,5));
+        game.insertFrame(new Frame(5,1));
+
+        int score = game.getGameScore();
+        assertEquals(21, score);
+
+    }
+
+    @Test
+    public void getGameScore_OneStrikeOneSpare_CalculatedSum(){
+
+        game.insertFrame(new Frame(10, 0));
+        game.insertFrame(new Frame(5, 5));
+        game.insertFrame(new Frame(2, 3));
+
+        int score = game.getGameScore();
+        assertEquals(37, score);
+    }
+
+    @Test
+    public void getGameScore_OneStrikeOneSpare_LongRun(){
+
+        game.insertFrame(new Frame(10,0));
+        game.insertFrame(new Frame(4,6));
+        game.insertFrame(new Frame(7,2));
+        game.insertFrame(new Frame(3,6));
+        game.insertFrame(new Frame(4,4));
+        game.insertFrame(new Frame(5,3));
+        game.insertFrame(new Frame(3,3));
+        game.insertFrame(new Frame(4,5));
+        game.insertFrame(new Frame(8,1));
+        game.insertFrame(new Frame(2,6));
+
+        int score = game.getGameScore();
+        assertEquals(103, score);
+    }
+
+    @Test
+    public void getGameScore_MultipleStrikes_CalculatedSum(){
+
+        game.insertFrame(new Frame(10,0));
+        game.insertFrame(new Frame(10,0));
+        game.insertFrame(new Frame(7,2));
+        game.insertFrame(new Frame(3,6));
+        game.insertFrame(new Frame(4,4));
+        game.insertFrame(new Frame(5,3));
+        game.insertFrame(new Frame(3,3));
+        game.insertFrame(new Frame(4,5));
+        game.insertFrame(new Frame(8,1));
+        game.insertFrame(new Frame(2,6));
+
+        int score = game.getGameScore();
+        assertEquals(112, score);
     }
 }
