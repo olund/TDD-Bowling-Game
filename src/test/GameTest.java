@@ -114,7 +114,23 @@ public class GameTest {
         game.insertFrame(new Frame(7,2));
 
         int score = game.getGameScore();
-        assertEquals(83, score);
+        assertEquals(85, score);
+    }
+
+    @Test
+    public void getGameScore_MultipleStrikesMultipleSpares() {
+
+        game.insertFrame(new Frame(10,0));
+        game.insertFrame(new Frame(10,0));
+        game.insertFrame(new Frame(2,8));
+        game.insertFrame(new Frame(10,0));
+        game.insertFrame(new Frame(10,0));
+        game.insertFrame(new Frame(10,0));
+        game.insertFrame(new Frame(10,0));
+        game.insertFrame(new Frame(7,2));
+
+        int score = game.getGameScore();
+        assertEquals(177, score);
     }
 
     @Test

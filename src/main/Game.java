@@ -70,6 +70,9 @@ public class Game {
                     }
                 }
                 numOfStrikes = 0;
+            } else if(numOfStrikes == 3){
+                sum += 30;
+                numOfStrikes = 2;
             }
         }
 
