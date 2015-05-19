@@ -9,8 +9,16 @@ import java.util.ArrayList;
  */
 public class Game {
 
+    public enum states {
+        STRIKE,
+        STANDARD,
+        SPARE,
+        LAST_SPARE,
+        LAST_STRIKE
+    };
+
     private ArrayList<Frame> frames;
-    private final int MAX_FRAMES = 11;
+    private final int MAX_FRAMES = 10;
 
     public Game() {
         frames = new ArrayList<>(10);
@@ -41,30 +49,25 @@ public class Game {
 
         for(int i = 0; i < frames.size(); i++) {
 
-            if(strike) {
-                strike = false;
-                //sum += frames.get(i).getScore();
-            } else if(spare) {
+            if(spare) {
                 spare = false;
                 sum += frames.get(i).getArr(0);
             }
 
-
-            if(isStrike(i)) {
+            if(isStrike(i) && i != MAX_FRAMES-1) {
                 numOfStrikes++;
                 strike = true;
-
             } else if(isSpare(i)) {
                 spare = true;
                 sum += 10;
             } else {
-                sum += frames.get(i).getScore();
+                sum += frames.get(i).getScore(1);
             }
 
             if(!strike) {
                 for (int j = 0; j < numOfStrikes; j++) {
                     if (j == 0) {
-                        sum += 10 + frames.get(i).getScore();
+                        sum += 10 + frames.get(i).getScore(-0);
                     } else {
                         sum += (numOfStrikes * 10) + frames.get(i).getArr(0);
                     }
@@ -74,6 +77,8 @@ public class Game {
                 sum += 30;
                 numOfStrikes = 2;
             }
+
+            strike = false;
         }
 
         return sum;
@@ -90,7 +95,7 @@ public class Game {
 
         if(frames.get(getFrameSize()-1).getArr(0) == 10){
             return false;
-        } else if(frames.get(getFrameSize()-1).getScore() == 10){
+        } else if(frames.get(getFrameSize()-1).getScore(-1) == 10){
             return true;
         }
         return false;
@@ -100,9 +105,13 @@ public class Game {
 
         if(frames.get(pos).getArr(0) == 10){
             return false;
-        } else if(frames.get(pos).getScore() == 10){
+        } else if(frames.get(pos).getScore(-1) == 10){
             return true;
         }
         return false;
+    }
+
+    private void calculateStrikeSum() {
+
     }
 }

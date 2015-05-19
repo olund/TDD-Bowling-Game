@@ -31,7 +31,7 @@ public class GameTest {
 
     }
 
-    /*@Test
+    @Test
     public void insertFrame_MoreThanTenFrames_ExpectedException() {
 
         Throwable e = null;
@@ -44,7 +44,7 @@ public class GameTest {
             e = ex;
         }
         assertTrue(e instanceof RangeException);
-    }*/
+    }
 
     @Test
     public void isStrike_GivenStrike_ExpectedTrue(){
@@ -232,5 +232,43 @@ public class GameTest {
         assertEquals(90, score);
     }
 
-    
+    @Test
+    public void getGameScore_LastFrameStrike_CalculateSum() {
+        game.insertFrame(new Frame(1,5));
+        game.insertFrame(new Frame(3,6));
+        game.insertFrame(new Frame(7,2));
+        game.insertFrame(new Frame(3,6));
+        game.insertFrame(new Frame(4,4));
+        game.insertFrame(new Frame(5,3));
+        game.insertFrame(new Frame(3,3));
+        game.insertFrame(new Frame(4,5));
+        game.insertFrame(new Frame(8, 1));
+
+        // Last frame with a strike and bonus throw of 9.
+        game.insertFrame(new Frame(10, 7, 2));
+
+        int score = game.getGameScore();
+        assertEquals(92, score);
+
+    }
+
+    @Test
+    public void getGameScore_SecondToLastFrameIsStrikeAndBonusThrowIsStrike_CalculateSum() {
+        game.insertFrame(new Frame(1,5));
+        game.insertFrame(new Frame(3,6));
+        game.insertFrame(new Frame(7,2));
+        game.insertFrame(new Frame(3,6));
+        game.insertFrame(new Frame(4,4));
+        game.insertFrame(new Frame(5,3));
+        game.insertFrame(new Frame(3,3));
+        game.insertFrame(new Frame(4,5));
+        game.insertFrame(new Frame(10, 0));
+
+        // Last frame with a strike and bonus throw of 9.
+        game.insertFrame(new Frame(10, 7, 2));
+
+        int score = game.getGameScore();
+        assertEquals(110, score);
+
+    }
 }

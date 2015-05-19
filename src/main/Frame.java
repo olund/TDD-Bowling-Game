@@ -35,10 +35,6 @@ public class Frame {
 
         int sum = val1 + val2;
 
-        if (sum > 10) {
-            throw new RangeException((short) 1, "Invalid range");
-        }
-
         if (sum != 10) {
             //throw new Exception("not");
         }
@@ -54,9 +50,11 @@ public class Frame {
         return this.pins.get(pos);
     }
 
-    public int getScore() {
+    public int getScore(int state) {
+
         int sum = this.pins.get(0) + this.pins.get(1);
-        if (this.pins.size() > 2) {
+
+        if (this.pins.size() > 2 && state == 1) {
             sum += this.pins.get(2);
         }
 

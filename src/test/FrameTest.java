@@ -74,7 +74,7 @@ public class FrameTest {
     @Test
     public void getScore_GivenSumOfVal1AndVal2_ExpectedSum() {
 
-        int result = f.getScore();
+        int result = f.getScore(-1);
         assertEquals(6, result);
 
     }
