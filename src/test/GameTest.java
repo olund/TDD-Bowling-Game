@@ -31,7 +31,7 @@ public class GameTest {
 
     }
 
-    @Test
+    /*@Test
     public void insertFrame_MoreThanTenFrames_ExpectedException() {
 
         Throwable e = null;
@@ -44,6 +44,20 @@ public class GameTest {
             e = ex;
         }
         assertTrue(e instanceof RangeException);
+    }*/
+
+    @Test
+    public void isStrike_GivenStrike_ExpectedTrue(){
+        game.insertFrame(new Frame(10, 0));
+        boolean result = game.isStrike();
+        assertTrue(result);
+    }
+
+    @Test
+    public void isStrike_NonStrike_ExpectedFalse(){
+        game.insertFrame(new Frame(5, 5));
+        boolean result = game.isStrike();
+        assertFalse(result);
     }
 
     @Test
@@ -66,24 +80,10 @@ public class GameTest {
     }
 
     @Test
-    public void isStrike_GivenStrike_ExpectedTrue(){
-        game.insertFrame(new Frame(10, 0));
-        boolean result = game.isStrike();
-        assertTrue(result);
-    }
-
-    @Test
-    public void isStrike_NonStrike_ExpectedFalse(){
-        game.insertFrame(new Frame(5, 5));
-        boolean result = game.isStrike();
-        assertFalse(result);
-    }
-
-    @Test
     public void getGameScore_OneStrike_ShortRun() {
 
         game.insertFrame(new Frame(10,0));
-        game.insertFrame(new Frame(5,2));
+        game.insertFrame(new Frame(5, 2));
 
         int score = game.getGameScore();
         assertEquals(24, score);
@@ -104,7 +104,6 @@ public class GameTest {
         assertEquals(51, score);
     }
 
-
     @Test
     public void getGameScore_MultipleStrikes() {
 
@@ -114,7 +113,7 @@ public class GameTest {
         game.insertFrame(new Frame(7,2));
 
         int score = game.getGameScore();
-        assertEquals(83, score);
+        assertEquals(85, score);
     }
 
     @Test
@@ -174,4 +173,64 @@ public class GameTest {
         int score = game.getGameScore();
         assertEquals(112, score);
     }
+
+    @Test
+    public void getGameScore_MultipleSpares_CalculatedSum() {
+        game.insertFrame(new Frame(8,2));
+        game.insertFrame(new Frame(5,5));
+        game.insertFrame(new Frame(7,2));
+        game.insertFrame(new Frame(3,6));
+        game.insertFrame(new Frame(4,4));
+        game.insertFrame(new Frame(5,3));
+        game.insertFrame(new Frame(3,3));
+        game.insertFrame(new Frame(4,5));
+        game.insertFrame(new Frame(8,1));
+        game.insertFrame(new Frame(2,6));
+
+        int score = game.getGameScore();
+        assertEquals(98, score);
+        assertEquals(10, game.getFrameSize());
+    }
+
+    @Test
+    public void getGameScore_ThreeSpares_CalculatedSum() {
+        game.insertFrame(new Frame(8,2));
+        game.insertFrame(new Frame(5,5));
+        game.insertFrame(new Frame(7,3));
+        game.insertFrame(new Frame(3, 6));
+
+        int score = game.getGameScore();
+        assertEquals(54, score);
+    }
+
+    @Test
+    public void getGameScore_LastFrameSpare_CalculatedSum() {
+        game.insertFrame(new Frame(8,2));
+        game.insertFrame(new Frame(5,5));
+        game.insertFrame(new Frame(3,6));
+        game.insertFrame(new Frame(7,3));
+
+        int score = game.getGameScore();
+        assertEquals(47, score);
+    }
+
+    @Test
+    public void getGameScore_LastFrameSpare2_CalculatedSum() {
+        game.insertFrame(new Frame(1,5));
+        game.insertFrame(new Frame(3,6));
+        game.insertFrame(new Frame(7,2));
+        game.insertFrame(new Frame(3,6));
+        game.insertFrame(new Frame(4,4));
+        game.insertFrame(new Frame(5,3));
+        game.insertFrame(new Frame(3,3));
+        game.insertFrame(new Frame(4,5));
+        game.insertFrame(new Frame(8, 1));
+        // Last frame with bonus throw (7).
+        game.insertFrame(new Frame(2, 8, 7));
+
+        int score = game.getGameScore();
+        assertEquals(90, score);
+    }
+
+    
 }

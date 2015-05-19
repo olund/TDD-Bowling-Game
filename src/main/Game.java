@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Game {
 
     private ArrayList<Frame> frames;
-    private final int MAX_FRAMES = 10;
+    private final int MAX_FRAMES = 11;
 
     public Game() {
         frames = new ArrayList<>(10);
@@ -70,6 +70,9 @@ public class Game {
                     }
                 }
                 numOfStrikes = 0;
+            } else if (numOfStrikes == 3) {
+                sum += 30;
+                numOfStrikes = 2;
             }
         }
 
