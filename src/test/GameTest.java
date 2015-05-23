@@ -1,6 +1,5 @@
 package test;
 
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import main.Frame;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,13 +7,17 @@ import static org.junit.Assert.*;
 import main.Game;
 import org.w3c.dom.ranges.RangeException;
 
+/**
+ * Created by Olund on 17/05/15.
+ */
+
 public class GameTest {
 
     private Game game;
 
     @Before
     public void setup() {
-        game = new Game();
+        this.game = new Game();
     }
 
     @Test
@@ -31,26 +34,18 @@ public class GameTest {
 
     }
 
-    @Test
+    @Test(expected = RangeException.class)
     public void insertFrame_MoreThanTenFrames_ExpectedException() {
-
-        Throwable e = null;
-
-        try {
-            for (int i = 0; i < 11; i++) {
-                game.insertFrame(new Frame(1,2));
-            }
-        } catch (Throwable ex) {
-            e = ex;
+        for (int i = 0; i < 11; i++) {
+            game.insertFrame(new Frame(1,2));
         }
-        assertTrue(e instanceof RangeException);
     }
 
     @Test
     public void isStrike_GivenStrike_ExpectedTrue(){
         game.insertFrame(new Frame(10, 0));
         boolean result = game.isStrike();
-        assertTrue(result);
+        assertEquals(result, true);
     }
 
     @Test
@@ -81,18 +76,15 @@ public class GameTest {
 
     @Test
     public void getGameScore_OneStrike_ShortRun() {
-
         game.insertFrame(new Frame(10,0));
         game.insertFrame(new Frame(5, 2));
 
         int score = game.getGameScore();
         assertEquals(24, score);
-
     }
 
     @Test
     public void getGameScore_OneStrike_LongerRun() {
-
         game.insertFrame(new Frame(1,6));
         game.insertFrame(new Frame(5,2));
         game.insertFrame(new Frame(3,1));
@@ -106,7 +98,6 @@ public class GameTest {
 
     @Test
     public void getGameScore_MultipleStrikes() {
-
         game.insertFrame(new Frame(10,0));
         game.insertFrame(new Frame(10,0));
         game.insertFrame(new Frame(10,0));
@@ -118,7 +109,6 @@ public class GameTest {
 
     @Test
     public void getGameScore_MultipleStrikesMultipleSpares() {
-
         game.insertFrame(new Frame(10,0));
         game.insertFrame(new Frame(10,0));
         game.insertFrame(new Frame(2,8));
@@ -134,7 +124,6 @@ public class GameTest {
 
     @Test
     public void getGameScore_OneSpare_ShortRun() {
-
         game.insertFrame(new Frame(5,5));
         game.insertFrame(new Frame(5,1));
 
@@ -145,7 +134,6 @@ public class GameTest {
 
     @Test
     public void getGameScore_OneStrikeOneSpare_CalculatedSum(){
-
         game.insertFrame(new Frame(10, 0));
         game.insertFrame(new Frame(5, 5));
         game.insertFrame(new Frame(2, 3));
@@ -156,7 +144,6 @@ public class GameTest {
 
     @Test
     public void getGameScore_OneStrikeOneSpare_LongRun(){
-
         game.insertFrame(new Frame(10,0));
         game.insertFrame(new Frame(4,6));
         game.insertFrame(new Frame(7,2));
@@ -174,7 +161,6 @@ public class GameTest {
 
     @Test
     public void getGameScore_MultipleStrikes_CalculatedSum(){
-
         game.insertFrame(new Frame(10,0));
         game.insertFrame(new Frame(10,0));
         game.insertFrame(new Frame(7,2));
